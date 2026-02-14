@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>මෙහෙයුම් පද්ධති (OS)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e67e22;
+            --light-bg: #ecf0f1;
+            --white: #ffffff;
+            --text: #2c3e50;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--accent);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--primary);
+            flex-wrap: wrap;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav button {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 16px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav button:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-bottom-color: var(--accent);
+        }
+
+        nav button.active {
+            border-bottom-color: var(--accent);
+            background-color: rgba(0,0,0,0.2);
+            font-weight: 700;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 25px;
+        }
+
+        .section {
+            display: none;
+            background: var(--white);
+            padding: 35px 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            animation: slideIn 0.4s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            border-left: 8px solid var(--accent);
+            padding-left: 20px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin: 25px 0 15px;
+        }
+
+        .definition-box {
+            background-color: #e3f2fd;
+            padding: 25px;
+            border-radius: 20px;
+            border-left: 6px solid var(--accent);
+            margin: 30px 0;
+            font-size: 1.15rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .functions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .function-card {
+            background: var(--light-bg);
+            padding: 20px 18px;
+            border-radius: 18px;
+            text-align: center;
+            transition: transform 0.2s;
+            border: 1px solid #d5dbdb;
+        }
+
+        .function-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+        }
+
+        .function-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .function-card h4 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .function-card p {
+            font-size: 0.95rem;
+        }
+
+        /* OS Examples (page 2) */
+        .os-examples {
+            background: #e8f0fe;
+            border-radius: 30px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .os-badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0 10px;
+        }
+
+        .os-badge {
+            background: white;
+            border-radius: 60px;
+            padding: 12px 25px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--accent);
+        }
+
+        /* storage */
+        .storage-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            background: #f0f7fb;
+            padding: 30px 20px;
+            border-radius: 35px;
+        }
+
+        .storage-item {
+            text-align: center;
+            width: 140px;
+        }
+
+        .storage-item .icon {
+            font-size: 3.5rem;
+            background: white;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            box-shadow: 0 8px 12px rgba(0,0,0,0.1);
+        }
+
+        .figure-caption {
+            background: #fcf3e0;
+            padding: 20px;
+            border-radius: 25px;
+            font-style: italic;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        /* Quiz */
+        .quiz-question {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            border: 1px solid #cfd8dc;
+        }
+
+        .quiz-question p {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .options label {
+            background: white;
+            padding: 14px 18px;
+            border-radius: 40px;
+            border: 1px solid #b0bec5;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .options label:hover {
+            background: #d4e6f1;
+            border-color: var(--secondary);
+        }
+
+        .options input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 15px;
+            accent-color: var(--accent);
+        }
+
+        .btn-check {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            display: block;
+            margin: 20px auto 10px;
+            box-shadow: 0 4px 8px rgba(230,126,34,0.3);
+        }
+
+        .btn-check:hover {
+            background: #cf711f;
+            transform: scale(1.02);
+        }
+
+        #quiz-result {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 15px;
+            border-radius: 40px;
+            background: #f1f8e9;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🖥️ මෙහෙයුම් පද්ධති (Operating Systems)</h1>
+    <p>පද්ධති මෘදුකාංග පිළිබඳ හැඳින්වීම</p>
+</header>
+
+<nav>
+    <button class="active" onclick="showSection('intro')">🔰 හැඳින්වීම</button>
+    <button onclick="showSection('os-types')">📱 විවිධ OS</button>
+    <button onclick="showSection('storage')">💾 ආචයන උපක්‍රම</button>
+    <button onclick="showSection('quiz')">📝 අභ්‍යාසය</button>
+</nav>
+
+<main>
+    <!-- SECTION 1: හැඳින්වීම / මෙහෙයුම් පද්ධතිය යනු (page 1) -->
+    <div id="intro" class="section active">
+        <h2>🔹 මෙහෙයුම් පද්ධතිය යනු කුමක්ද?</h2>
+        <div class="definition-box">
+            <p style="font-size:1.3rem;"><strong>මෙහෙයුම් පද්ධතිය</strong> යනු <strong>මෘදුකාංගයකි</strong>. පරිගණකයක් භාවිතයෙන් කාර්ය සිදු කර ගැනීම සඳහා මෙම මෘදුකාංගය අවශ්‍ය වේ.</p>
+            <p style="margin-top: 15px;">එමගින් <strong>දෘඪාංග හා මෘදුකාංග පාලනය කිරීම</strong>, පරිශීලක අතුරු මුහුණතක් (user interface) සැපයීම වැනි කටයුතු රැසක් සිදු කරයි.</p>
+        </div>
+
+        <h3>📌 ප්‍රධාන කාර්යයන්</h3>
+        <div class="functions-grid">
+            <div class="function-card">
+                <div class="function-icon">🧑‍💻</div>
+                <h4>පරිශීලක අතුරු මුහුණත</h4>
+                <p>පරිශීලකයාට පරිගණකය සමඟ පහසුවෙන් සම්බන්ධ වීම සඳහා GUI හෝ CLI සපයයි.</p>
+            </div>
+            <div class="function-card">
+                <div class="function-icon">⚙️</div>
+                <h4>දෘඪාංග හා මෘදුකාංග පාලනය</h4>
+                <p>සියලුම දෘඪාංග සම්පත් (CPU, මතකය, ආදාන/ප්‍රතිදාන) සම්බන්ධීකරණය කරයි.</p>
+            </div>
+        </div>
+        <p style="background: #fcf3e0; padding: 15px; border-radius: 20px;"><strong>🔐 අමතරව:</strong> පරිශීලක නාම (username) සහ මුරපද (password) මගින් පරිගණකයේ සුරක්ෂිතතාවය ඇති කිරීමට මෙහෙයුම් පද්ධතිය උපකාරී වේ.</p>
+    </div>
+
+    <!-- SECTION 2: විවිධ වර්ගයේ මෙහෙයුම් පද්ධති (page 2) -->
+    <div id="os-types" class="section">
+        <h2>📱 විවිධ උපකරණ භාවිත මෙහෙයුම් පද්ධති</h2>
+        <p style="font-size:1.1rem;">විවිධ වර්ගයේ මෙහෙයුම් පද්ධති විවිධ උපකරණ වල භාවිත වේ.</p>
+        
+        <h3>ජංගම දුරකතන OS</h3>
+        <div class="os-badge-container">
+            <span class="os-badge">Android</span>
+            <span class="os-badge">iOS</span>
+        </div>
+
+        <h3>පරිගණක OS</h3>
+        <div class="os-badge-container">
+            <span class="os-badge">Windows 11</span>
+            <span class="os-badge">macOS</span>
+            <span class="os-badge">Ubuntu</span>
+        </div>
+        <p class="figure-caption">(විවිධ මෙහෙයුම් පද්ධති)</p>
+
+        <div class="os-examples">
+            <h3>🖧 සුපිරි පරිගණක, සර්වර් පරිගණක මෙහෙයුම් පද්ධති සඳහා උදාහරණ</h3>
+            <div class="os-badge-container">
+                <span class="os-badge">Windows Server</span>
+                <span class="os-badge">Linux (RHEL)</span>
+                <span class="os-badge">Ubuntu Server</span>
+                <span class="os-badge">CentOS</span>
+                <span class="os-badge">FreeBSD</span>
+            </div>
+            <p style="margin-top: 20px;">මේවා සුපිරි පරිගණක, සර්වර් පරිගණක ක්‍රියා කරවීම, වෙබ් හෝස්ටින් සේවා ආදිය සඳහා යොදා ගනී.</p>
+        </div>
+    </div>
+
+    <!-- SECTION 3: පරිගණක ආචයනය (Storage) - page 3 -->
+    <div id="storage" class="section">
+        <h2>💾 පරිගණක ආචයන උපාංග තුළ තැන්පත් කළ හැකි දේවල්</h2>
+        <p>ලිපි ලේඛන, පින්තුර, වීඩියෝ, චලන රූප, කටහඬ හා සංගීතය ලෙස විවිධ ස්වරූපවලින් යුත් <strong>දත්ත හා තොරතුරු</strong> පවතී. එම දත්ත හා තොරතුරු පරිගණක ආචයන උපාංග තුළ තැන්පත් කර තැබිය හැකිය. එලෙසම පරිගණකයට උපදෙස් සපයන <strong>වැඩසටහන් (මෘදුකාංග)</strong> ආදිය ද තැන්පත් කර තැබිය හැකිය.</p>
+
+        <div class="storage-gallery">
+            <div class="storage-item"><div class="icon">📄</div><span>ලිපි ලේඛන</span></div>
+            <div class="storage-item"><div class="icon">🖼️</div><span>පින්තුර</span></div>
+            <div class="storage-item"><div class="icon">🎬</div><span>වීඩියෝ</span></div>
+            <div class="storage-item"><div class="icon">🎵</div><span>කටහඬ/සංගීතය</span></div>
+            <div class="storage-item"><div class="icon">🎮</div><span>වැඩසටහන්</span></div>
+        </div>
+
+        <div class="figure-caption">
+            ආචයන උපාංග තුළ තැන්පත් කළ හැකි දත්ත, තොරතුරු හා වැඩසටහන් සඳහා උදාහරණ
+        </div>
+
+        <h3>📁 සුලබ ගොනු ආකාර කිහිපයක්</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+            <span class="os-badge" style="background: #e0f2f1;">.txt .docx</span>
+            <span class="os-badge" style="background: #ffe0b2;">.jpg .png</span>
+            <span class="os-badge" style="background: #d1c4e9;">.mp4 .mov</span>
+            <span class="os-badge" style="background: #c8e6c9;">.mp3 .wav</span>
+            <span class="os-badge" style="background: #ffcdd2;">.exe .app</span>
+            <span class="os-badge" style="background: #bbdefb;">.pdf</span>
+        </div>
+    </div>
+
+    <!-- SECTION 4: අභ්‍යාසය (Quiz) - all pages covered -->
+    <div id="quiz" class="section">
+        <h2>📝 ඔබේ දැනුම පරීක්ෂා කරන්න</h2>
+        <p style="margin-bottom: 25px;">නිවරදි පිළිතුර තෝරන්න.</p>
+
+        <!-- Question 1 (page1) -->
+        <div class="quiz-question">
+            <p>1️⃣ මෙහෙයුම් පද්ධතියක් යනු කුමක්ද?</p>
+            <div class="options">
+                <label><input type="radio" name="q1" value="wrong"> දෘඪාංග කොටසක්</label>
+                <label><input type="radio" name="q1" value="correct"> මෘදුකාංගයක්</label>
+                <label><input type="radio" name="q1" value="wrong"> ආදාන උපාංගයක්</label>
+                <label><input type="radio" name="q1" value="wrong"> ප්‍රතිදාන උපාංගයක්</label>
+            </div>
+        </div>
+
+        <!-- Question 2 (page1 functions) -->
+        <div class="quiz-question">
+            <p>2️⃣ පහත සඳහන් කුමන කාර්යය මෙහෙයුම් පද්ධතියක් විසින් සිදු කරයි?</p>
+            <div class="options">
+                <label><input type="radio" name="q2" value="wrong"> අංක ගණිත ගණනය කිරීම් පමණයි</label>
+                <label><input type="radio" name="q2" value="wrong"> පරිශීලකයා වෙනුවෙන් අන්තර්ජාලය සෙවීම</label>
+                <label><input type="radio" name="q2" value="correct"> දෘඪාංග හා මෘදුකාංග පාලනය කිරීම</label>
+                <label><input type="radio" name="q2" value="wrong"> වයිරස් නිර්මාණය කිරීම</label>
+            </div>
+        </div>
+
+        <!-- Question 3 (page2: විවිධ පරිසර සඳහා OS) -->
+        <div class="quiz-question">
+            <p>3️⃣ පහත සඳහන් කුමන මෙහෙයුම් පද්ධතියක් සර්වර්/ජාල පරිගණක සඳහා බහුලව භාවිත නොවේද?</p>
+            <div class="options">
+                <label><input type="radio" name="q3" value="wrong"> Windows Server</label>
+                <label><input type="radio" name="q3" value="wrong"> Ubuntu Server</label>
+                <label><input type="radio" name="q3" value="correct"> iOS (ජංගම දුරකථන OS)</label>
+                <label><input type="radio" name="q3" value="wrong"> Red Hat Enterprise Linux</label>
+            </div>
+        </div>
+
+        <!-- Question 4 (page3: ගබඩා කිරීම) -->
+        <div class="quiz-question">
+            <p>4️⃣ පහත සඳහන් දේ අතුරින්, ආචයන උපාංගයක තැන්පත් කළ හැකි දෙයක් නොවන්නේ කුමක්ද?</p>
+            <div class="options">
+                <label><input type="radio" name="q4" value="wrong"> පින්තුර (.jpg)</label>
+                <label><input type="radio" name="q4" value="wrong"> වැඩසටහන් (.exe)</label>
+                <label><input type="radio" name="q4" value="correct"> භෞතික පොතක් (මුද්‍රිත)</label>
+                <label><input type="radio" name="q4" value="wrong"> ලිපි ලේඛන (.txt)</label>
+            </div>
+        </div>
+
+        <!-- Question 5 (page3 රූපය අනුව) -->
+        <div class="quiz-question">
+            <p>5️⃣ පහත සඳහන් කුමන වර්ගය ආචයන උපාංගවල තැන්පත් කළ හැකි දත්ත සඳහා උදාහරණයක් නොවේද?</p>
+            <div class="options">
+                <label><input type="radio" name="q5" value="wrong"> කටහඬ හා සංගීතය</label>
+                <label><input type="radio" name="q5" value="wrong"> චලන රූප (වීඩියෝ)</label>
+                <label><input type="radio" name="q5" value="wrong"> පින්තුර</label>
+                <label><input type="radio" name="q5" value="correct"> රසායනික ද්‍රව්‍ය</label>
+            </div>
+        </div>
+
+        <button class="btn-check" onclick="checkQuiz()">✅ පිළිතුරු පරීක්ෂා කරන්න</button>
+        <div id="quiz-result"></div>
+    </div>
+</main>
+
+<footer>
+    <p>💻 ICT Learning Material <br>Copyright © Krishan Liyanaarachchi</p>
+</footer>
+
+<script>
+    function showSection(sectionId) {
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.querySelectorAll('nav button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+        document.querySelectorAll('nav button').forEach(btn => {
+            if (btn.getAttribute('onclick').includes(sectionId)) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    function checkQuiz() {
+        // correct values mapping
+        const correct = {
+            q1: 'correct',
+            q2: 'correct',
+            q3: 'correct',
+            q4: 'correct',
+            q5: 'correct'
+        };
+        let score = 0;
+        const total = 5;
+        for (let i = 1; i <= total; i++) {
+            const radios = document.querySelectorAll(`input[name="q${i}"]:checked`);
+            if (radios.length && radios[0].value === correct[`q${i}`]) {
+                score++;
+            }
+        }
+        const resultDiv = document.getElementById('quiz-result');
+        let msg = `ඔබගේ ලකුණු: ${score} / ${total}`;
+        if (score === total) msg += ' 🌟 ඉතා විශිෂ්ටයි!';
+        else if (score >= 3) msg += ' 👍 හොඳ උත්සාහයක්, නැවත කියවා බලන්න.';
+        else msg += ' 📘 පාඩම හොඳින් කියවා නැවත උත්සාහ කරන්න.';
+        resultDiv.innerHTML = msg;
+        resultDiv.style.background = '#fff3cd';
+        resultDiv.style.padding = '15px';
+        resultDiv.style.borderRadius = '40px';
+    }
+</script>
+
+</body>
+</html>
